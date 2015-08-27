@@ -7,24 +7,30 @@ describe "Lib", ->
   
   request = null
   
+  app = null
+  subapp = null
+  
+  routesApp = ->
+    'get /': (req, res) -> res.send "Get Hello"
+    'post /': (req, res) -> res.send "Post Hello"
+    'scope /api':
+      'get /': (req, res) -> res.json info: 'ok'
+      'post /foo': (req, res) -> res.json info: 'bar'
+    'mount /subapp': subapp
+
+  routesSubApp = ->
+    'get /': (req, res) -> res.send "subapp"
+    'get /archive': (req, res) -> res.send "archive"
+  
   before ->
     app = express()
-    blog = express()
+    subapp = express()
     
     routesmanager app
-    routesmanager blog
+    routesmanager subapp
     
-    app.loadRoutes
-      'get /': (req, res) -> res.send "Get Hello"
-      'post /': (req, res) -> res.send "Post Hello"
-      'scope /api':
-        'get /': (req, res) -> res.json info: 'ok'
-        'post /foo': (req, res) -> res.json info: 'bar'
-      'mount /blog': blog
-      
-    blog.loadRoutes
-      'get /': (req, res) -> res.send "blog"
-      'get /archive': (req, res) -> res.send "archive"
+    app.loadRoutes routesApp()
+    subapp.loadRoutes routesSubApp()
     
     request = supertest app
     
@@ -42,30 +48,33 @@ describe "Lib", ->
       .expect "Post Hello"
       .end done
       
-  context "GET /api", (done) ->
-    it "should respond 200 and info: 'ok'", (done) ->
-      request.get '/api'
-      .expect 200
-      .expect info: 'ok'
-      .end done
-      
-  context "POST /api/foo", (done) ->
-    it "should respond 200 and info: 'bar'", (done) ->
-      request.post '/api/foo'
-      .expect 200
-      .expect info: 'bar'
-      .end done
-      
-  context "GET /blog", ->
-    it "should respond 200 and blog", (done) ->
-      request.get '/blog'
-      .expect 200
-      .expect "blog"
-      .end done
-      
-  context "GET /blog/archive", ->
-    it "should respond 200 and archive", (done) ->
-      request.get '/blog/archive'
-      .expect 200
-      .expect "archive"
-      .end done
+  context "SCOPE /api", ->
+    context "GET /", (done) ->
+      it "should respond 200 and info: 'ok'", (done) ->
+        request.get '/api'
+        .expect 200
+        .expect info: 'ok'
+        .end done
+        
+    context "POST /foo", (done) ->
+      it "should respond 200 and info: 'bar'", (done) ->
+        request.post '/api/foo'
+        .expect 200
+        .expect info: 'bar'
+        .end done
+  
+  context "MOUNT /subapp", ->
+    context "GET /", ->
+      it "should respond 200 and subapp", (done) ->
+        request.get '/subapp'
+        .expect 200
+        .expect "subapp"
+        .end done
+        
+    context "GET /archive", ->
+      it "should respond 200 and archive", (done) ->
+        request.get '/subapp/archive'
+        .expect 200
+        .expect "archive"
+        .end done
+  
