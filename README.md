@@ -30,7 +30,11 @@ app.loadRoutes
     (req, res) ->
       res.send res.locals.heyho
   ]
+  'get /middleware': [middleware, action]
   'scope /api':
+    # this will used as middleware for whole scope
+    '/': [middleware1, middleware2]
+    
     'get /': (req, res) -> res.json info: 'ok'
     'post /foo': (req, res) -> res.json info: 'bar'
   'mount /blog': blog
