@@ -38,7 +38,7 @@ module.exports = (app, opts={}) ->
       
       if method is 'scope'
         app.loadRoutes route, path
-      if method is 'mount'
+      else if method is 'mount'
         app.use path, route
       else if _.isFunction route
         loadRoute path, route, method
