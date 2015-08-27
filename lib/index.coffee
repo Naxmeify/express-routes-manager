@@ -54,7 +54,7 @@ module.exports = (app, opts={}) ->
         loadRoute path, method, route
         
       else if _.isArray route
-        loadRouteArray path, method, route
+        loadRoute path, method, route
         
       else if _.isPlainObject route
         loadRouteObject path, method, route

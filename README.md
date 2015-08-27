@@ -23,6 +23,13 @@ routesmanager blog
 app.loadRoutes
   'get /': (req, res) -> res.send "Get Hello"
   'post /': (req, res) -> res.send "Post Hello"
+  'get /array': [
+    (req, res, next) ->  
+      res.locals.heyho = "HEYHO"
+      next()
+    (req, res) ->
+      res.send res.locals.heyho
+  ]
   'scope /api':
     'get /': (req, res) -> res.json info: 'ok'
     'post /foo': (req, res) -> res.json info: 'bar'
