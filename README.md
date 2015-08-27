@@ -1,5 +1,7 @@
 # damn-express-routing
 
+[![Build Status](https://travis-ci.org/Naxmeify/express-routes-manager.svg?branch=master)](https://travis-ci.org/Naxmeify/express-routes-manager)
+
 ## Installation
 
 ```
