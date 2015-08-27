@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Naxmeify/express-routes-manager.svg?branch=master)](https://travis-ci.org/Naxmeify/express-routes-manager)
 
+[![NPM](https://nodei.co/npm/express-routes-manager.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/express-routes-manager/)
+
 ## Installation
 
 ```
