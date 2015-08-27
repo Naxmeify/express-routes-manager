@@ -1,0 +1,5 @@
+--reporter spec
+--ui bdd
+--recursive
+--require should
+--compilers coffee:coffee-script/register
