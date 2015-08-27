@@ -8,6 +8,18 @@
   },
   "author": "MRW Neundorf <matt@nax.me>",
   "license": "MIT",
+  "keywords": [
+    "express",
+    "routes"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Naxmeify/express-routes-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Naxmeify/express-routes-manager/issues"
+  },
+  "homepage": "https://github.com/Naxmeify/express-routes-manager",
   "dependencies": {
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
